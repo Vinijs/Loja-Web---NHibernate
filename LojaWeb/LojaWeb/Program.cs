@@ -7,28 +7,18 @@ using NHibernate.Transform;
 
 //NHibernateHelper.GeraSchema();
 
-// ======================= AULA 05 - 21/05/2024  =====================
+// ======================= AULA 06 - 22/05/2024  =====================
 
 ISession session = NHibernateHelper.AbreSession();
 
-String hql = "select p.Categoria as Categoria, count(p) as NumeroDePedidos from Produto p group by p.Categoria";
+IQuery query = session.CreateQuery("select distinct c from Categoria c join fetch c.Produtos");
 
-IQuery query = session.CreateQuery(hql);
+IList<Categoria> categorias = query.List<Categoria>();
 
-query.SetResultTransformer(Transformers.AliasToBean<ProdutosPorCategoria>());
-
-
-// IList<Object[]> resultados = query.List<object[]>();
-
-IList<ProdutosPorCategoria> relatorio = query.List<ProdutosPorCategoria>();
-
-//foreach (Object[] resultado in resultados)
-//{
-//    ProdutosPorCategoria p = new ProdutosPorCategoria();
-//    p.Categoria = (Categoria)resultado[0];
-//    p.NumeroDePedidos = (long)resultado[1];
-//    relatorio.Add(p);
-//}
+foreach (var categoria in categorias)
+{
+    Console.WriteLine(categoria.Nome + " - " + categoria.Produtos.Count());
+}
 
 session.Close();
 
