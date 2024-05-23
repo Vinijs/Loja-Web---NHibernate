@@ -7,25 +7,24 @@ using NHibernate.Transform;
 
 //NHibernateHelper.GeraSchema();
 
-// ======================= AULA 06 - 22/05/2024  =====================
+// ======================= AULA 07 - 23/05/2024  =====================
 
 ISession session = NHibernateHelper.AbreSession();
 
-IQuery query = session.CreateQuery("select distinct c from Categoria c join fetch c.Produtos");
+ProdutoDAO produtoDAO = new ProdutoDAO(session);
 
-IList<Categoria> categorias = query.List<Categoria>();
+IList<Produto> produtos = produtoDAO.BuscaPorNomePrecoMinimoECategoria("", 20, "");
 
-foreach (var categoria in categorias)
+
+foreach (Produto produto in produtos)
 {
-    Console.WriteLine(categoria.Nome + " - " + categoria.Produtos.Count());
+    Console.WriteLine("Nome: " + produto.Nome
+                               + "\nPreco: " + produto.Preco.ToString()
+                               + "\nCategoria: " + produto.Categoria.Nome
+                               + "\n"
+                               );
 }
 
 session.Close();
 
 Console.Read();
-
-public class ProdutosPorCategoria
-{
-    public Categoria Categoria { get; set; }
-    public long NumeroDePedidos { get; set; }
-}
