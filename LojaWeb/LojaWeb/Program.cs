@@ -7,23 +7,24 @@ using NHibernate.Transform;
 
 //NHibernateHelper.GeraSchema();
 
-// ======================= AULA 07 - 23/05/2024  =====================
+// ======================= AULA 08 - 24/05/2024  =====================
 
 ISession session = NHibernateHelper.AbreSession();
 
-ProdutoDAO produtoDAO = new ProdutoDAO(session);
+ITransaction transacao = session.BeginTransaction();
+ Venda venda = new Venda();
+Usuario cliente = session.Get<Usuario>(1);
+venda.Cliente = cliente;
 
-IList<Produto> produtos = produtoDAO.BuscaPorNomePrecoMinimoECategoria("", 20, "");
+Produto p1 = session.Get<Produto>(1);
+Produto p2 = session.Get<Produto>(2);
 
+venda.Produtos.Add(p1);
+venda.Produtos.Add(p2);
 
-foreach (Produto produto in produtos)
-{
-    Console.WriteLine("Nome: " + produto.Nome
-                               + "\nPreco: " + produto.Preco.ToString()
-                               + "\nCategoria: " + produto.Categoria.Nome
-                               + "\n"
-                               );
-}
+session.Save(venda);
+
+transacao.Commit();
 
 session.Close();
 
