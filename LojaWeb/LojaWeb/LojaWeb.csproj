@@ -12,6 +12,7 @@
     <None Remove="Mapeamentos\Categoria.hbm.xml" />
     <None Remove="Mapeamentos\Produto.hbm.xml" />
     <None Remove="Mapeamentos\Usuario.hbm.xml" />
+    <None Remove="Mapeamentos\Venda.hbm.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +25,7 @@
     <EmbeddedResource Include="Mapeamentos\Categoria.hbm.xml" />
     <EmbeddedResource Include="Mapeamentos\Produto.hbm.xml" />
     <EmbeddedResource Include="Mapeamentos\Usuario.hbm.xml" />
+    <EmbeddedResource Include="Mapeamentos\Venda.hbm.xml" />
   </ItemGroup>
 
   <ItemGroup>

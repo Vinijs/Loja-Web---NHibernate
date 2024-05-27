@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace LojaWeb.Entidades
 {
-    public abstract class Usuario
+    public class PessoaJuridica : Usuario
     {
-        public virtual int Id { get; set; }
-        public virtual string Nome { get; set; }
+        public virtual string CNPJ { get; set; }
     }
 }

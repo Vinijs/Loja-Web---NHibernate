@@ -7,24 +7,22 @@ using NHibernate.Transform;
 
 //NHibernateHelper.GeraSchema();
 
-// ======================= AULA 08 - 24/05/2024  =====================
+// ======================= AULA 09 - 26/05/2024  =====================
 
 ISession session = NHibernateHelper.AbreSession();
 
-ITransaction transacao = session.BeginTransaction();
- Venda venda = new Venda();
-Usuario cliente = session.Get<Usuario>(1);
-venda.Cliente = cliente;
+PessoaFisica Vinicius = new PessoaFisica();
+Vinicius.Nome = "Vinicius";
+Vinicius.CPF = "123.456.789-00";
 
-Produto p1 = session.Get<Produto>(1);
-Produto p2 = session.Get<Produto>(2);
+PessoaJuridica TorneseUmProgramador = new PessoaJuridica();
+TorneseUmProgramador.Nome = "Torne-se Um Programador";
+TorneseUmProgramador.CNPJ = "123.456/0001-11";
 
-venda.Produtos.Add(p1);
-venda.Produtos.Add(p2);
+UsuarioDAO usuarioDAO = new UsuarioDAO(session);
 
-session.Save(venda);
-
-transacao.Commit();
+usuarioDAO.Adiciona(Vinicius);
+usuarioDAO.Adiciona(TorneseUmProgramador);
 
 session.Close();
 
